@@ -1,7 +1,7 @@
 import numpy as np
 from numpy.random import rand
 
-# some initialization types need library support not included in this version
+# some initialization types need library support not included in this version; try pip
 #from magic_square import
 """
 def magicSquare(n):
@@ -52,8 +52,8 @@ def randomPing(xside,yside,cmlType='KK',scaleFactor=.000000000001):
 
 def randbin(xlen,ylen,scaleFactor=1.0):
     ll=np.random.rand(xlen, ylen)
-    ll[where(ll>=.5)]=1.0
-    ll[where(ll<.5)]=0.0
+    ll[np.where(ll>=.5)]=1.0
+    ll[np.where(ll<.5)]=0.0
     return ll
 
 

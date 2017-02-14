@@ -23,8 +23,6 @@ class AnalysisCML:
         self.edges=0
         self.cumBins=0
         self.count=0
-        self.melrow=[]
-        self.melrowspins=[]
 
 
     def update(self,lattice,histrange=''):
@@ -40,8 +38,8 @@ class AnalysisCML:
         else:
         # let the data bounds determine the min and max, giving more resolution around
         # attractors
-            bins,self.edges=histogram(lattice,bins=self.binSpec)
-
+            bins,self.edges=histogram(lattice,bins=self.binSpec,range=[-1.0,1.0])
+        # don't need normalization with density=True
         self.bins= bins/float(self.cells)
 
         # shannon entropy over binsh
@@ -70,6 +68,5 @@ class AnalysisCML:
         # might want to do something like choose average over window in row, subsample
         sidelen_x = size(lattice,0)
         sidelen_y = size(lattice, 1)
-        self.melrow = ( lattice[int(sidelen_x/2), int(sidelen_y/2)-8:int(sidelen_y/2)+8] +1) / 2.0
-        self.melrowspins = self.spin[int(sidelen_x/2), int(sidelen_y/2)-8:int(sidelen_y/2)+8]
+
 
