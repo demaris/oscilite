@@ -4,7 +4,7 @@ class AnalysisCML:
 
     def __init__(self, initLattice,doSpins=1,doEntropy=1,binSpec=16):
         """
-        take initial state as parameter
+        take cml lattisce initial state as parameter, and controls for what stats to gather
         """
         #global matrix, numCells
         self.doEntropy=doEntropy
@@ -35,11 +35,8 @@ class AnalysisCML:
         if histrange=='KKfull':
             bins,self.edges=histogram(lattice,bins=self.binSpec,range=(-1.0,1.0))
             self.cumBins=self.cumBins+self.bins
-        else:
-        # let the data bounds determine the min and max, giving more resolution around
-        # attractors
-            bins,self.edges=histogram(lattice,bins=self.binSpec,range=[-1.0,1.0])
-        # don't need normalization with density=True
+                # don't need normalization with density=True
+
         self.bins= bins/float(self.cells)
 
         # shannon entropy over binsh
@@ -65,8 +62,5 @@ class AnalysisCML:
 
         self.count = self.count + 1
 
-        # might want to do something like choose average over window in row, subsample
-        sidelen_x = size(lattice,0)
-        sidelen_y = size(lattice, 1)
 
 
