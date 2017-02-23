@@ -25,7 +25,7 @@ class AnalysisCML:
         self.count=0
 
 
-    def update(self,lattice,histrange=''):
+    def update(self,lattice,iter,histrange='KKfull'):
         """
         Update stats for CML matrix
         """

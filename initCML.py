@@ -1,7 +1,7 @@
 import numpy as np
 from numpy.random import rand
 
-# some initialization types need library support not included in this version; try pip
+# some initialization types need library support not included in this version; try pip magic_square
 #from magic_square import
 """
 def magicSquare(n):
@@ -50,13 +50,13 @@ def randomPing(xside,yside,cmlType='KK',scaleFactor=.000000000001):
         ll[xside/2,yside/2]=.99
     return ll
 
-def randbin(xlen,ylen,scaleFactor=1.0):
-    ll=np.random.rand(xlen, ylen)
+def randbin(xside,yside,scaleFactor=1.0):
+    ll=np.random.rand(xside, yside)
     ll[np.where(ll>=.5)]=1.0
     ll[np.where(ll<.5)]=0.0
     return ll
 
-
+# this is for lulz; it's pretty slow in pure python
 def primesSquare(n):
     N=n*n
     primes  = []

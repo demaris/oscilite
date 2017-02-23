@@ -132,7 +132,6 @@ class DiffusiveCML:
             diff=convolve2d(self.matrix, self.dkern, mode='same', boundary='wrap')
             # scale before adding to keep value in <-1,+1> bounds
             diffScaled=((1-self.gl) * self.matrix + diff)
-            # scale before adding to keep value in <-1,+1> bounds
 
         # apply the map after scaling
         self.matrix = (1-self.gg) * (1- (self.a * (diffScaled**2))) + (self.gg/self.numCells) * sum(self.matrix)
