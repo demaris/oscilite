@@ -8,5 +8,11 @@ setup(name='cml_basic'
     author_email='davidl.demaris@gmail.com',
     license='MIT',
     packages=['cml_basic'],
-    data_files=[("",["LICENSE.txt"])]
-      zip_safe=False)
+    data_files=[("",["LICENSE.txt"])],
+    install_requires=[
+        numpy,
+        scipy.stats,
+        scipy.signal,
+        matplotlib,
+    ],
+    zip_safe=False)
