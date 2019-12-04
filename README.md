@@ -1,13 +1,30 @@
-# cml_mini
+# oscilite
+David DeMaris
+demaris@well.com
+davidl.demaris@gmail.com
 
-This package contains two types of dynamical simulation kernels which can be combined.  They are abstract models studied within the
-computational physics and nonlinear dynamics community, and may have applicability to neuroscience and ecological modeling.
+This package contains two types of dynamical simulation classes which can be made to interact, which serve as models of
+cooperative and competitive spatial dynamical systems.
 
-The diffusiveCML class implements a hybrid diffusively coupled map lattice (CML) and globally coupled map (GCM) and some statistical utilities,
-including an ising model with a momentum based conception of spin of each lattice site.  The spin variable can be displayed and
-measures of frustration used to control the dynamics to reach an equilibrium.
+They are abstract complex systems models originally studied within the computational physics and nonlinear dynamics community,
+and may have applicability to neuroscience and ecological modeling.  In my dissertation work at University of Texas Austin,
+a matlab version of the cooperative dynamics code was used for both unsupervised and supervised computer vision tasks, and some modeling of
+psychophysics  (Necker Cube, Muller Lyer Illusions).
 
-The competitiveCML class implements a competitive CML where sites with high values.
+With respect to neuroscience, the individual sites or cells can be considered as abstractions of a balanced network
+coupled to its neighbors. It can be considered an efficient neural field or mass action model, in the sense that spikes
+are not treated, but only ensemble average frequencies about a default rate. The state variables are something like a column
+activity.  High coupling increases the synchronization.
+
+The diffusive class implements a hybrid diffusively coupled map lattice (CML) and globally coupled map (GCM)
+and some statistical utilities, including an ising model with a momentum based conception of spin of each lattice site.
+The spin field can be displayed, and measures of frustration used to control the dynamics to reach an equilibrium.
+
+In addition the CML implementation supports two forms of control via masks.  There is 'pinning', where some states are
+fixed while others vary according to local dynamics, allowing the pinned states to act as 'lattice defects' which may
+control the dynamics.  There is also an activation mask and an example given of lateral spreading dynamics.
+
+The competitive_cml class implements a competitive CML where sites with high state values supress neighbors.
 
 By setting the local coupling to zero, the hybrid map reduces to globally coupled map (GCM) formulations.
 Conversely, setting global coupling to zero reduces the dynamics to the CML formulation.
@@ -21,12 +38,17 @@ It is intended that you have a full scipy distribution, but really relies only o
 and matplotlib for display and user interface controls.
 
 The diffusive cml can be considered as simulation of columns of balanced networks of excitatory and inhibitory neurons.
-The statistics of globally coupled maps resembles a small world connectity matrix between sites.
+The statistics of globally coupled maps resembles a small world connectivity matrix between sites.
 
 The combination of recurrent dynamics and convolution may create mapping manifolds similar to deep feedforward networks,
-with subspaces in the dynamics acting as the nodes in hidden layers and as output units. In my image recognition work,
+with subspaces visited by the dynamics acting as the nodes in hidden layers and as output units. In my image recognition work,
 I searched for dynamics which would create similar distributions across subspaces (partitions) for different views of an object,
 with a distance function comparing distribution values similar to comparision nodes in Siamese networks.
-The dynamics were constrained to a few iterations, with time varying alpha and gamma parameters.
+The dynamics were constrained to a few iterations, with time varying nonlinearity and coupling parameters.
+The working hypothesis was that slow oscillations served as nonlinear control parameters for fast dynamics in the gamma range.
+Learning was performed with genetic algorithms which would find parameters for each class, with a family of recognizers
+creating the overall manifold.  It was shown that even though the GA objective (loss) functions only handled invariance over views and
+maximizing distance from other representations via KL distance term, projections into a low dimensional space exhibited clustering
+of the recognized objects according to the number of jointed segments.
 
 
