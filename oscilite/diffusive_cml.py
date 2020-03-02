@@ -46,14 +46,17 @@ class DiffusiveCML:
     def __init__(self, lattice, kern='symm4', gl=0.5, gg=0.0, a=1.47, a_spread=0.0, local_iter=1, \
                  use_pinned=False, pinned_mask='', use_activation=False):
         """
-        Parameters:
-        lattice             initial state of matrix
-        kern                coupling kernel set from predeclared values, typically with orientation sensitivity
-        gl                  local coupling (gamma in Kaneko papers), range 0-1  (typically .5 or less)
-        gg                  global coupling range 0-1 (typically .3 or less)
-        a                   alpha nonlinearity control parameter; low is period doubling cascade, high (<2.0) chaotic with windows
-        a_spread            allows nonlinearity parameter to be a field variable, i.e. a gradient
 
+        :param lattice: initial state of matrix
+        :param kern: coupling kernel drawn from predeclared values in this function, typically with orientation sensitivity
+        :param gl: local coupling (gamma in Kaneko papers), range 0-1  (typically .5 or less)
+        :param gg: global coupling range 0-1 (typically .12 or less)
+        :param a: alpha nonlinearity control parameter; low (<1.5) is period doubling cascade, high (<2.0) chaotic with windows
+        :param a_spread: a gradient over alpha is defined in the vertical direction
+        :param local_iter: number of diffusion cycles before each reaction.  Classical cml is 1 diffusion cycle then one nonlinearity cycle.
+        :param use_pinned:  a mask is applied after the nonlinear map, allowing sites to be pinned to a fixed value serving as control
+        :param pinned_mask: the mask to be used for pinning
+        :param use_activation: a spreading activation mask with its own dynamical evolution is used after the lattice and only active sites are updated
         """
         self.matrix = lattice
 
@@ -139,6 +142,9 @@ class DiffusiveCML:
         # print self.a
 
     def kernel_update(self):
+        """"
+        Convolution kernel for diffusive coupling can be updated dynamically
+        """
         """
         Convolution kernel for diffusive coupling can be updated dynamically
         """
@@ -187,7 +193,7 @@ class DiffusiveCML:
             # scale lattice by activation map before nonlinear map and re-apply pinMask if active; otherwise
             # pin sites from last step would be lost by activation scaling in next step
             self.matrix = self.matrix * self.activation
-            #print self.matrix
+
             if self.use_pinned:
                 # apply mask values where non-zero
                 pin_points = np.where(self.pinned_mask != 0)

@@ -1,9 +1,19 @@
 import numpy as np
-# These functions create rectangular values useful as initial conditions for research
+"""
+Utility functions to initialize a lattice .
+image, random, random positive, random within range with a single 'maximum' ping site in center, center ping binary 0s except maximum 1 in center, binary 1 and 0 with density parameter
+magic square and scaled primes are amusing seeds
+"""
+
 
 from PIL import Image
 
 def image_cml(image_path,scale_factor=1.0):
+    """
+    :param image_path: path to an image to convert to float
+    :param scale_factor: range to scale image values, maximum and default is 1
+    :return:
+    """
     img=Image.open(image_path)
     img=img.convert('L')
     ll=np.array(img.getdata(),float).reshape(img.size[1], img.size[0])
@@ -40,8 +50,7 @@ def random_ping(xside,yside,cmlType='KK',scale_factor=.000000000001):
 
 def center_ping_binary(xside,yside):
     ll=np.zeros((xside,yside))
-    ll[xside/2,yside/2]=1
-    print ll[xside/2-1:xside/2+1,yside/2-1:yside/2+1]
+    ll[int(xside/2),int(yside/2)]=1
     return ll
 
 # create a sparse pattern of ones in a zero background
@@ -63,7 +72,7 @@ def magic_square(n):
     return ll
 """
 
-# this is for lulz; it's pretty slow in pure python
+# this is for fun and artisitic purposes; it's pretty slow in pure python
 # create an initial condition based on a field of prime values scaled by the max prime, mod side length
 def primes_square(n):
     N=n*n

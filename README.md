@@ -3,13 +3,30 @@ David DeMaris
 demaris@well.com
 davidl.demaris@gmail.com
 
-This package contains two types of dynamical simulation classes which can be made to interact, which serve as models of
-cooperative and competitive spatial dynamical systems.
+This package contains two types of discrete dynamical simulation classes which can be made to interact, and which serve as models of
+cooperative and competitive spatial dynamical  systems, and requires only a scientific python distribution. The 'lite'
+designator indicates that many contemplated components may be available in a later 'heavy weight' distribution.
 
-They are abstract complex systems models originally studied within the computational physics and nonlinear dynamics community,
-and may have applicability to neuroscience and ecological modeling.  In my dissertation work at University of Texas Austin,
-a matlab version of the cooperative dynamics code was used for both unsupervised and supervised computer vision tasks, and some modeling of
-psychophysics  (Necker Cube, Muller Lyer Illusions).
+There are two testing and visualization demo environments provided to give some intutition for the behavior of coupled map lattice
+(CML) dynamics.
+python demo_diffusive_cml.py
+python demo_competitive_cml.py
+
+CML are abstract complex systems models originally studied within the computational physics and nonlinear dynamics community,
+and may have applicability to neuroscience, social community formation, and ecological modeling.  In my masters and Ph.D. work
+at University of Texas Austin EE department, a matlab version of the cooperative dynamics code was used for both unsupervised and
+supervised computer vision tasks, and modeling of psychophysics  (Necker Cube, Muller Lyer Illusions).
+This work was informed by, and presented at conferences including INNS and Computational Neuroscience, and in particular
+the then small community of oscillations and neural field theory. This work was unusual in introducing nonstationarity
+or dynamic networks, spatio-temporal interactions, and a view of perception as recurrent activity in short frames where
+the representation is statistical and coded over the full range of ensemble activity rates, rather than high frequency
+(activity) units.
+In supervised learning, coarsed grained representations of lattice activity are used to adjust a small number of
+parameters applie everywhere in a field; this procedure recently been described as downward causation.
+
+
+https://daviddemaris.com/pubs/
+https://royalsocietypublishing.org/doi/full/10.1098/rsta.2016.0338
 
 With respect to neuroscience, the individual sites or cells can be considered as abstractions of a balanced network
 coupled to its neighbors. It can be considered an efficient neural field or mass action model, in the sense that spikes
@@ -51,4 +68,5 @@ creating the overall manifold.  It was shown that even though the GA objective (
 maximizing distance from other representations via KL distance term, projections into a low dimensional space exhibited clustering
 of the recognized objects according to the number of jointed segments.
 
-
+A Brief History of Excitable Map-Based Neurons and Neural Networks
+https://arxiv.org/pdf/1303.0256.pdf

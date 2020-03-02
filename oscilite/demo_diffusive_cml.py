@@ -1,16 +1,35 @@
-
+#import PyQt5
+import matplotlib
+#matplotlib.use("TkAgg")
+#matplotlib.use("Qt5Agg");  matplotlib.rcParams['backend.qt5']='PySide2'
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
+
 import time
 from scipy.ndimage import zoom
 from diffusive_cml import DiffusiveCML
 import init_cml
 from analysis_cml import AnalysisCML
 
-
+"""
+demo_diffusive is a demo instanatiating a ViewCML is a class to maintain various parameters for a demonstration and matplotlib controls.
+Several features of oscillite not in classical CML literature are illustrated, including spins, pinning or 'crystal defect' sites, and activation.
+"""
 class ViewCML:
+    """
 
+    """
     def __init__(self,cml,stats,im=None,axhist=None,scale=4,drawmod=1,drawtype='state'):
+        """
+
+        :param cml: the previously created lattice to be displayed
+        :param stats: the stats object created to monitor the lattice
+        :param im: the image object to be updated after some number of steps (default 1)
+        :param axhist: an axis to draw a histogram associated with the lattice
+        :param scale: a scale value to increase the size of the lattice view by pixel replication and smoothing
+        :param drawmod: a modulus which can be used to skip drawing every site in case of flickering dynamics
+        :param drawtype: visualization type, one of 'state','spin','pinned',activation,
+        """
         self.cml=cml
         self.stats=stats
         self.im=im
@@ -50,7 +69,6 @@ class ViewCML:
             self.cml.use_pinned=True
         elif label =='spin_control':
             self.spin_control=True
-
         elif label == 'LFO':
              self.lfo=True
         elif label == 'activation':
@@ -82,7 +100,7 @@ class ViewCML:
         # perform diffusion and reaction steps
         view.cml.iterate()
         # print inter to console
-        if view.cml.iter % 50 == 0: print view.cml.iter
+        if view.cml.iter % 50 == 0: print(view.cml.iter)
         # compute measurements on the whole lattice
         view.stats.update(cml.matrix)
         # control example by spins (ref.  J.C. Perez, The New Way of Artificial Intelligence
@@ -91,19 +109,19 @@ class ViewCML:
         # This can be considered a form of unsupervised learning; essentially a similarity preserving hash into the partition space
 
         if view.spin_control:
-            print "spin_trend ",view.stats.spin_trend
+            print ("spin_trend ",view.stats.spin_trend)
             if view.stats.spin_trend>100:
 
                 view.cml.a=cml.a-.05
                 a_slider.set_val(view.cml.a)
-                print "reducing alpha", view.cml.a
+                print("reducing alpha", view.cml.a)
                 fig.canvas.draw_idle()
             # stop diffusion
             if cml.iter==1000:
                 cml.kern_type= 'zero'
                 cml.kernel_update()
                 #cml.a=1.7
-                print "stopping diffusion and quenching a= ",cml.a
+                print("stopping diffusion and quenching a= ",cml.a)
 
         # if modulo cycle, switch to other of last two values slider values cl, alpha
         if view.lfo:
@@ -156,7 +174,7 @@ class ViewCML:
             view.axhist.autoscale(enable=False)
             view.axhist.bar(center, stats.bins, width=width, align='center')
             ax.draw_artist(im)
-            view.im.figure.canvas.update()
+            view.im.figure.canvas.draw_idle()
             view.im.figure.canvas.flush_events()
             #view.im.figure.canvas.draw()
             view.axhist.figure.canvas.draw()
@@ -169,19 +187,19 @@ plt.suptitle('State of each lattice site')
 fig.canvas.set_window_title("Hybrid Diffusive-Global Coupled Map Lattice")
 ax.patch.set_facecolor('black')
 plt.subplots_adjust(left=0.25, bottom=0.45)
-
+# set the array size, square by default
+# some display and setup code probably needs adjustment for non-square lattices
 sidelen=100
-
 # establish the number of bins (partitions in the state space) for the histogram display
 bin_count=64
 # controls scaling of graphics i.e how many pixels per site; rendering order on image draw controls blurring
-scale=1
+scale=4
 # var zoom_style controls zooming (pixel replication to make a bigger display), default is to zoom
 zoom_style=''
 # Various initial lattice styles.
-init_lattice=init_cml.image_cml('./MNISTdigits_crop.png')
+#init_lattice=init_cml.image_cml('./MNISTdigits_crop.png')
 # uncomment if initializing with an image
-zoom_style='image'
+#zoom_style='image'
 # primes will be slow for a big lattice
 #init_lattice=init_cml.primes_square(sidelen)
 #init_lattice=np.rot90(initLattice,2)
@@ -191,8 +209,8 @@ zoom_style='image'
 #init_lattice=init_cml.magicSquare(sidelen)
 
 
-#init_lattice=init_cml.random_cml(sidelen,sidelen)
-# setup pinned sites for
+init_lattice=init_cml.random_cml(sidelen,sidelen)
+# setup pinned sites for test of pinning
 pinmap=init_cml.random_binary(sidelen,sidelen,sparsity=0.2)
 
 # predefined kernels:  'symm4','symm8','asymm', 'magic11','pinwheel'
@@ -208,19 +226,21 @@ cml.activation=init_cml.center_ping_binary(sidelen,sidelen)
 if zoom_style == 'image':
     llshow = (cml.matrix + 1) * 128
 else:
-    llshow = zoom(((cml.matrix) + 1) * 128, scale, order=0)
+    llshow = zoom(((cml.matrix) + 1) * 128, scale, order=2)
 im=plt.imshow(llshow)
 # gist_heat, flag, gist_ncar,
-plt.set_cmap('bwr')
+plt.set_cmap('spring')
 cml_ax=plt.axis([0, cml.matrix.shape[1], cml.matrix.shape[0], .001])
 # create control sliders for alpha, local and global coupling
 axcolor = 'lightgoldenrodyellow'
 #axfreq = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor=axcolor)
 #axamp = plt.axes([0.25, 0.15, 0.65, 0.03], facecolor=axcolor)
-axa_spread = plt.axes([0.2, 0.20, 0.65, 0.03],axisbg=axcolor)
-axalpha = plt.axes([0.2, 0.25, 0.65, 0.03],axisbg=axcolor)
-axlocal = plt.axes([0.2, 0.30, 0.65, 0.03],axisbg=axcolor)
-axglob = plt.axes([0.2, 0.35, 0.65, 0.03],axisbg=axcolor)
+# axes no longer takes axisbg?
+axa_spread = plt.axes([0.2, 0.20, 0.65, 0.03])
+
+axalpha = plt.axes([0.2, 0.25, 0.65, 0.03])
+axlocal = plt.axes([0.2, 0.30, 0.65, 0.03])
+axglob = plt.axes([0.2, 0.35, 0.65, 0.03])
 axhist = plt.axes([0.2, 0.04, 0.65, 0.1])
 axhist.set_ylim(0.0,0.4)
 axhist.set_xlim(-1.0,1.0)
@@ -231,12 +251,12 @@ gg_slider = Slider(axglob, 'global coupling', 0.01, 0.2, valinit=cml.gg)
 a_spread_slider = Slider(axa_spread, 'alpha spread', 0.0,2.0, valinit=cml.a_spread)
 
 # display selection buttions
-display_ax = plt.axes([0.025, 0.5, 0.15, 0.15])
+display_ax = plt.axes([0.025, 0.5, 0.20, 0.15])
 display_ctl = RadioButtons(display_ax, ('state', 'spin', 'pinned', 'activation'), active=0)
 display_ax.set_title('Lattice Display', size=12)
 # evolution control selection buttons
-actions_ax = plt.axes([0.025, 0.8, 0.15, 0.15])
-actions_ctl = RadioButtons(actions_ax, ('free', 'pinned', 'spin_control', 'LFO', 'activation','image'), active=0)
+actions_ax = plt.axes([0.025, 0.8, 0.20, 0.15])
+actions_ctl = RadioButtons(actions_ax, ('free', 'pinned', 'spin_control', 'LFO', 'activation'), active=0)
 actions_ax.set_title('Evolution Control', size=12)
 
 # create instance of view and controller objects to encapsulate various rendering parameters and interpret GUI clicks
@@ -248,6 +268,7 @@ a_slider.on_changed(view.update_parms)
 a_spread_slider.on_changed(view.update_parms)
 gl_slider.on_changed(view.update_parms)
 gg_slider.on_changed(view.update_parms)
+
 
 # Create a new timer object. Set the interval to number of milliseconds
 # (1000 is default) and tell the timer what function should be called.

@@ -29,8 +29,8 @@ class ViewCML:
     def update(self):
         # perform diffusion and reaction steps
         view.cml.iterate()
-        # print inter to console (should make a label perhaps
-        if view.cml.iter % 10 == 0: print view.cml.iter
+        # print iter to console (should make a label perhaps
+        if view.cml.iter % 10 == 0: print(view.cml.iter)
         # compute measurements on the whole lattice
         view.stats.update(cml.matrix)
 
@@ -49,15 +49,12 @@ class ViewCML:
                 # zero out background in image to prevent flashing
                 # llshow[np.where(llshow == llshow[0, 0])] = 0
             else:
-                # print 'scaling'
                 if view.draw_type == 'state':
                     # competitive values always positive so no shift required
                     drawoffset = 0
                     # compute normalization factor to put data in range 0-127
                     norm_val = np.max(cml.matrix)
-                    #print norm_val
                     llshow = zoom(((cml.matrix) / norm_val + drawoffset) * 128, scale, order=2)
-                    #print llshow
                 elif view.draw_type == 'spin': llshow = zoom(((view.stats.spin) + 1) * 128, view.scale, order=0)
             ## Display the data
             view.im.set_data(llshow)
@@ -123,8 +120,8 @@ cml_ax=plt.axis([0, sidelen, sidelen, .001])
 axcolor = 'lightgoldenrodyellow'
 #axfreq = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor=axcolor)
 #axamp = plt.axes([0.25, 0.15, 0.65, 0.03], facecolor=axcolor)
-axalpha = plt.axes([0.2, 0.2, 0.65, 0.03],axisbg=axcolor)
-axlocal = plt.axes([0.2, 0.25, 0.65, 0.03],axisbg=axcolor)
+axalpha = plt.axes([0.2, 0.2, 0.65, 0.03])
+axlocal = plt.axes([0.2, 0.25, 0.65, 0.03])
 axhist = plt.axes([0.2, 0.04, 0.65, 0.1])
 axhist.set_ylim(0.0,1.0)
 axhist.set_xlim(0,1)

@@ -4,7 +4,11 @@ class AnalysisCML:
 
     def __init__(self, init_lattice, do_spins=1, do_entropy=1, bin_spec=16):
         """
-        take cml lattice initial state as parameter, and controls for what stats to gather
+        establish lattice and controls for what statistics to gather at each cycle
+        do_spins:  maintain prior state for one cycle and measure direction of state evolution as a momentum 'spin'
+        do_entropy: compute shannon entropy
+        bin_spec: compute the coarse graining, state distribution over partitions
+
         """
         #global matrix, num_cells
         self.do_entropy=do_entropy

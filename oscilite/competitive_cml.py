@@ -11,7 +11,9 @@ class CompetitiveCML:
 
     def __init__(self, lattice,l=5.0,a=0.26):
         """
-        take initial state as parameter
+        lattice: initial state of lattice
+        l:
+        a:
         """
         #global matrix, num_cells
         self.matrix=lattice
