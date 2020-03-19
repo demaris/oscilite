@@ -16,13 +16,13 @@ CML are abstract complex systems models originally studied within the computatio
 and may have applicability to neuroscience, social community formation, and ecological modeling.  In my masters and Ph.D. work
 at University of Texas Austin EE department, a matlab version of the cooperative dynamics code was used for both unsupervised and
 supervised computer vision tasks, and modeling of psychophysics  (Necker Cube, Muller Lyer Illusions).
-This work was informed by, and presented at conferences including INNS and Computational Neuroscience, and in particular
+This work was informed by emerging theories of oscillations, balanced networks, and cross frequency coupling, and presented at conferences including INNS and Computational Neuroscience, and in particular
 the then small community of oscillations and neural field theory. This work was unusual in introducing nonstationarity
 or dynamic networks, spatio-temporal interactions, and a view of perception as recurrent activity in short frames where
 the representation is statistical and coded over the full range of ensemble activity rates, rather than high frequency
 (activity) units.
 In supervised learning, coarsed grained representations of lattice activity are used to adjust a small number of
-parameters applie everywhere in a field; this procedure recently been described as downward causation.
+parameters applied everywhere in a field; this procedure recently been described as downward causation.
 
 
 https://daviddemaris.com/pubs/
@@ -51,7 +51,7 @@ alpha being a field variable, with a range of values from low (current alpha set
 In addition you can observe the effects of cycling the alpha, local and global coupling parameters. In earlier work
 on image and pattern recognition using these systems I varied these parameters.
 
-It is intended that you have a full scipy distribution, but really relies only on scipy.signal, scipy.stats,
+It is intended that you have a full scipy distribution, but this code relies only on scipy.signal, scipy.stats,
 and matplotlib for display and user interface controls.
 
 The diffusive cml can be considered as simulation of columns of balanced networks of excitatory and inhibitory neurons.
@@ -62,8 +62,8 @@ with subspaces visited by the dynamics acting as the nodes in hidden layers and 
 I searched for dynamics which would create similar distributions across subspaces (partitions) for different views of an object,
 with a distance function comparing distribution values similar to comparision nodes in Siamese networks.
 The dynamics were constrained to a few iterations, with time varying nonlinearity and coupling parameters.
-The working hypothesis was that slow oscillations served as nonlinear control parameters for fast dynamics in the gamma range.
-Learning was performed with genetic algorithms which would find parameters for each class, with a family of recognizers
+The working hypothesis was that slow oscillations (alpha, delta) serve as nonlinear control parameters for fast dynamics in the gamma range.
+Learning was performed with genetic algorithms to search parameters for each class, with a family of recognizers
 creating the overall manifold.  It was shown that even though the GA objective (loss) functions only handled invariance over views and
 maximizing distance from other representations via KL distance term, projections into a low dimensional space exhibited clustering
 of the recognized objects according to the number of jointed segments.
