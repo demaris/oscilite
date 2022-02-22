@@ -24,7 +24,7 @@ Several papers are available here.
 
 https://daviddemaris.com/pubs/
 
-In supervised learning, coarsed grained representations of lattice activity are used to adjust a small number of
+In supervised and semi-supervised learning, coarsed grained representations of lattice activity are used to adjust a small number of
 parameters applied everywhere in a field; this procedure recently been described as downward causation.
 
 https://royalsocietypublishing.org/doi/full/10.1098/rsta.2016.0338
@@ -43,11 +43,9 @@ and some statistical utilities, including an ising model with a momentum based c
 The spin field can be displayed, and measures of frustration used to control the dynamics to reach an equilibrium.
 Some work at IBM in the 80s used this self organizing annealing-like method to discriminate defect images. 
 
-In addition the CML implementation supports two forms of control via masks.  There is 'pinning', where some states are
+In addition the diffusive CML implementation supports two forms of control via masks.  There is 'pinning', where some states are
 fixed while others vary according to local dynamics, allowing the pinned states to act as 'lattice defects' which may
 control the dynamics.  There is also an activation mask and an example given of lateral spreading dynamics.
-
-The competitive_cml class implements a competitive CML where sites with high state values supress neighbors.
 
 By setting the local coupling to zero, the hybrid map reduces to globally coupled map (GCM) formulations.
 Conversely, setting global coupling to zero reduces the dynamics to the CML formulation.
@@ -55,7 +53,10 @@ While most of the literature has a fixed setting for the nonlinearity parameter 
 alpha being a field variable, with a range of values from low (current alpha setting)
 
 In addition you can observe the effects of cycling the alpha, local and global coupling parameters. In earlier work
-on image and pattern recognition using these systems I varied these parameters.
+on image and pattern recognition using these systems, these parameters are varied to perform unsupervised clustering,
+or via semi-supervised learning using a genetic algorithm to search the paramter space. 
+
+The competitive_cml class implements a competitive CML where sites with high state values supress neighbors.
 
 It is intended that you have a full scipy distribution, but this code relies only on scipy.signal, scipy.stats,
 and matplotlib for display and user interface controls.
@@ -68,7 +69,8 @@ with subspaces visited by the dynamics acting as the nodes in hidden layers and 
 I searched for dynamics which would create similar distributions across subspaces (partitions) for different views of an object,
 with a distance function comparing distribution values similar to comparision nodes in Siamese networks.
 The dynamics were constrained to a few iterations, with time varying nonlinearity and coupling parameters.
-The working hypothesis was that slow oscillations (alpha, delta) serve as nonlinear control parameters for fast dynamics in the gamma range.
+The working hypothesis was that slow oscillations (alpha, delta) serve as nonlinear control parameters for fast dynamics in the gamma range,
+with the convolution and coupling occuring periodically in low gamma. 
 Learning was performed with genetic algorithms to search parameters for each class, with a family of recognizers
 creating the overall manifold.  It was shown that even though the GA objective (loss) functions only handled invariance over views and
 maximizing distance from other representations via KL distance term, projections into a low dimensional space exhibited clustering
