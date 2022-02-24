@@ -24,15 +24,11 @@ Several papers are available here.
 
 https://daviddemaris.com/pubs/
 
-In supervised and semi-supervised learning, coarsed grained representations of lattice activity are used to adjust a small number of
-parameters applied everywhere in a field; this procedure recently been described as downward causation.
-
-https://royalsocietypublishing.org/doi/full/10.1098/rsta.2016.0338
 
 But more straightforwardly representations are points on a manifold of the ensemble activty. 
 
 With respect to neuroscience, the individual sites or cells can be considered as abstractions of a local E-I network
-or pool, then coupled to its neighbors. It can be considered an efficient neural field or mass action model, in the sense that spikes
+or pool, which is coupled to its neighbors. It can be considered an efficient neural field or mass action model, in the sense that spikes
 are not treated, but only ensemble average frequencies about a default rate. The state variables model a recurrent pool in a column
 High coupling increases the synchronization over the network, where synchronization is used as in the statistical physics literature - 
 high synchronization means the distribution is focused (possibly multi-modally), low synchronization means that it is dispersed. 
@@ -67,12 +63,13 @@ The map function is tunable to be either local, global, or a cobination as descr
 
 http://www.cbpf.br/~cirto/MecEstNaoExten_HTML/AULAS/Aula_20/Ouchi_&_Kaneko_%28Coupled_Maps_With_Local_And_Global_Interactions%29_%5BChaos_2000%5D.pdf
 
-It is also possible to supply coupling kernels larger than nearest neighbor as in the original CML formulation. 
+It is also possible to supply coupling kernels larger than nearest neighbor couplings in the original CML formulation. 
+This package includes a 'pinwheel' coupling kernel. 
 
 The combination of recurrent dynamics and convolution may create mapping manifolds similar to deep feedforward networks,
 with subspaces visited by the dynamics acting as the nodes in hidden layers and as output units. In my image recognition work,
 I searched for dynamics which would create similar distributions across subspaces (partitions) for different views of an object,
-with a distance function comparing distribution values similar to comparision nodes in Siamese networks.
+with a distance function comparing distribution values similar to the comparison nodes and layers in Siamese networks.
 The dynamics were constrained to a few iterations, with time varying nonlinearity and coupling parameters.
 The working hypothesis was that slow oscillations (alpha, delta) serve as nonlinear control parameters for fast dynamics in the gamma range,
 with the convolution and coupling occuring periodically in low gamma. 
@@ -82,8 +79,17 @@ creating the overall manifold.  It was shown that even though the GA objective (
 maximizing distance from other representations via a KL distance term, projections into a low dimensional space exhibited clustering
 of the recognized objects according to the number of jointed segments.
 
+In supervised and semi-supervised learning, coarsed grained representations of lattice activity are used to adjust a small number of
+parameters applied everywhere in a field; this procedure recently been described as downward causation.  I am not aware
+of other learning methods which rely on a coarse grained representation during learning. 
+
+Coarse-graining as a downward causation mechanism
+https://royalsocietypublishing.org/doi/full/10.1098/rsta.2016.0338
+Mental States as Macrostates emerging from EEG dynamics (this earlier work is not cited in the Flack paper above) 
+https://arxiv.org/pdf/0810.0479.pdf
 
 A Brief History of Excitable Map-Based Neurons and Neural Networks
 https://arxiv.org/pdf/1303.0256.pdf
+
 Map based models in Neurodynamics 
 https://www.researchgate.net/profile/Vladimir-Nekorkin/publication/301232904_MAP_BASED_MODELS_IN_NEURODYNAMICS/links/5710e0c008ae68dc790ae7b4/MAP-BASED-MODELS-IN-NEURODYNAMICS.pdf
