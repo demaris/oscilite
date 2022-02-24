@@ -63,6 +63,11 @@ and matplotlib for display and user interface controls.
 
 The diffusive cml can be considered as simulation of columns of balanced networks of excitatory and inhibitory neurons.
 The statistics of globally coupled maps resembles a small world connectivity matrix between sites.
+The map function is tunable to be either local, global, or a cobination as described in the following paper: 
+
+http://www.cbpf.br/~cirto/MecEstNaoExten_HTML/AULAS/Aula_20/Ouchi_&_Kaneko_%28Coupled_Maps_With_Local_And_Global_Interactions%29_%5BChaos_2000%5D.pdf
+
+It is also possible to supply coupling kernels larger than nearest neighbor as in the original CML formulation. 
 
 The combination of recurrent dynamics and convolution may create mapping manifolds similar to deep feedforward networks,
 with subspaces visited by the dynamics acting as the nodes in hidden layers and as output units. In my image recognition work,
@@ -71,10 +76,14 @@ with a distance function comparing distribution values similar to comparision no
 The dynamics were constrained to a few iterations, with time varying nonlinearity and coupling parameters.
 The working hypothesis was that slow oscillations (alpha, delta) serve as nonlinear control parameters for fast dynamics in the gamma range,
 with the convolution and coupling occuring periodically in low gamma. 
-Learning was performed with genetic algorithms to search parameters for each class, with a family of recognizers
+
+Learning was performed with genetic algorithms to search parameters for each recognizer class, with a family of per-classrecognizers
 creating the overall manifold.  It was shown that even though the GA objective (loss) functions only handled invariance over views and
-maximizing distance from other representations via KL distance term, projections into a low dimensional space exhibited clustering
+maximizing distance from other representations via a KL distance term, projections into a low dimensional space exhibited clustering
 of the recognized objects according to the number of jointed segments.
+
 
 A Brief History of Excitable Map-Based Neurons and Neural Networks
 https://arxiv.org/pdf/1303.0256.pdf
+Map based models in Neurodynamics 
+https://www.researchgate.net/profile/Vladimir-Nekorkin/publication/301232904_MAP_BASED_MODELS_IN_NEURODYNAMICS/links/5710e0c008ae68dc790ae7b4/MAP-BASED-MODELS-IN-NEURODYNAMICS.pdf
